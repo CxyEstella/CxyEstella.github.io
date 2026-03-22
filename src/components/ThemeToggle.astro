@@ -1,0 +1,37 @@
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="切换主题">
+  深色模式
+</button>
+
+<script is:inline>
+  const setupThemeToggle = () => {
+    const button = document.querySelector('[data-theme-toggle]');
+    if (!button) return;
+
+    const sync = () => {
+      const current = document.documentElement.dataset.theme ?? 'light';
+      const nextLabel = current === 'dark' ? '浅色模式' : '深色模式';
+      button.textContent = nextLabel;
+      button.setAttribute('aria-pressed', String(current === 'dark'));
+    };
+
+    sync();
+
+    button.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme ?? 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try {
+        window.localStorage.setItem('theme', next);
+      } catch {
+        // Ignore persistence failures and still let the theme switch for this session.
+      }
+      sync();
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupThemeToggle, { once: true });
+  } else {
+    setupThemeToggle();
+  }
+</script>

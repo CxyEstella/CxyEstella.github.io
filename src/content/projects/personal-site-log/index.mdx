@@ -1,0 +1,58 @@
+---
+title: 个人网站搭建日志
+description: 记录这个博客从需求确认、信息架构到部署方案的第一轮搭建过程。
+pubDate: 2026-03-22
+updatedDate: 2026-03-22
+tags:
+  - Astro
+  - GitHub Pages
+  - 项目记录
+status: active
+stack:
+  - Astro
+  - Markdown
+  - GitHub Pages
+startedDate: 2026-03-22
+repoUrl: https://github.com/your-username/your-username.github.io
+cover: ./cover.svg
+coverAlt: 一个网站结构草图封面
+---
+
+## 目标
+
+这个项目不是做成单纯的展示页，而是做一个能长期写作和查找内容的静态博客。
+
+## 第一轮需求
+
+- 支持 Markdown 和 MDX
+- 支持图片
+- 支持数学公式
+- 支持彩色代码块
+- 支持站内搜索
+- 支持暗色模式
+- 部署到 GitHub Pages
+
+## 当前架构
+
+内容被拆成四个集合：
+
+```txt
+blog/
+reading/
+notes/
+projects/
+```
+
+## 决策理由
+
+Astro 比单纯文档站更灵活，适合“笔记 + 博客 + 项目记录”的混合写法。GitHub Pages 则让部署流程足够轻，适合个人长期维护。
+
+## 下一步
+
+后续会继续补：
+
+1. 评论系统
+2. 更细的内容模板
+3. 首页精选与更多筛选
+4. 自定义域名
+

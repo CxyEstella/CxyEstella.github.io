@@ -1,0 +1,149 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/lib/urls';
+
+const searchIndexUrl = withBase('/search-index.json');
+---
+
+<BaseLayout title="搜索" description="搜索站内文章、标签、笔记与项目记录。">
+  <div class="container">
+    <header class="page-header">
+      <p class="eyebrow">Search</p>
+      <h1 class="page-title">站内搜索</h1>
+      <p class="page-lead">支持标题、摘要、标签与正文关键词检索，中文直接搜整句也可以。</p>
+    </header>
+
+    <section class="search-panel">
+      <div class="search-panel__top">
+        <label class="sr-only" for="search-page-input">
+          搜索内容
+        </label>
+        <input
+          id="search-page-input"
+          class="search-panel__input"
+          type="search"
+          placeholder="例如：知识管理、transformer、网站迭代"
+          autocomplete="off"
+        />
+      </div>
+      <p class="search-panel__hint">
+        搜索范围包含 `Blog / Reading / Notes / Projects`，支持按标题、标签、摘要、正文匹配。
+      </p>
+      <p class="search-status" data-search-status>Loading search index...</p>
+      <div class="search-results" data-search-results></div>
+    </section>
+  </div>
+
+  <script define:vars={{ searchIndexUrl }}>
+    const input = document.querySelector('#search-page-input');
+    const status = document.querySelector('[data-search-status]');
+    const results = document.querySelector('[data-search-results]');
+
+    const normalize = (value = '') => value.toLowerCase().normalize('NFKC').trim();
+    const params = new URL(window.location.href).searchParams;
+    const initialQuery = params.get('q') ?? '';
+    input.value = initialQuery;
+
+    let searchEntries = [];
+
+    const scoreEntry = (entry, rawQuery) => {
+      if (!rawQuery) return 0;
+
+      const query = normalize(rawQuery);
+      const terms = query.split(/\s+/).filter(Boolean);
+      const title = normalize(entry.title);
+      const tags = normalize(entry.tags.join(' '));
+      const description = normalize(entry.description);
+      const text = normalize(entry.text);
+      let score = 0;
+
+      if (title.includes(query)) score += 120;
+      if (tags.includes(query)) score += 80;
+      if (description.includes(query)) score += 60;
+      if (text.includes(query)) score += 20;
+
+      for (const term of terms) {
+        if (title.includes(term)) score += 45;
+        if (tags.includes(term)) score += 24;
+        if (description.includes(term)) score += 18;
+        if (text.includes(term)) score += 8;
+      }
+
+      return score;
+    };
+
+    const excerpt = (text, query) => {
+      if (!query) return text.slice(0, 110);
+
+      const normalizedText = normalize(text);
+      const index = normalizedText.indexOf(normalize(query));
+      if (index === -1) return text.slice(0, 110);
+
+      const start = Math.max(0, index - 24);
+      const end = Math.min(text.length, index + 86);
+      return `${start > 0 ? '...' : ''}${text.slice(start, end)}${end < text.length ? '...' : ''}`;
+    };
+
+    const render = (query) => {
+      const ranked = (query
+        ? searchEntries
+            .map((entry) => ({ entry, score: scoreEntry(entry, query) }))
+            .filter((item) => item.score > 0)
+            .sort((left, right) => right.score - left.score)
+            .map((item) => item.entry)
+        : searchEntries.slice(0, 8));
+
+      results.innerHTML = ranked
+        .map(
+          (entry) => `
+            <article class="search-result">
+              <div class="search-result__meta">${entry.collection} / ${entry.date}</div>
+              <h2 class="search-result__title"><a href="${entry.url}">${entry.title}</a></h2>
+              <p class="search-result__description">${entry.description}</p>
+              <p class="search-result__description">${excerpt(entry.text, query)}</p>
+            </article>
+          `,
+        )
+        .join('');
+
+      if (!query) {
+        status.textContent = 'Showing the latest 8 entries. Type to filter.';
+        return;
+      }
+
+      status.textContent =
+        ranked.length > 0
+          ? `Found ${ranked.length} matching entries for "${query}".`
+          : `No entries matched "${query}".`;
+    };
+
+    const syncQuery = (value) => {
+      const nextUrl = new URL(window.location.href);
+      if (value) {
+        nextUrl.searchParams.set('q', value);
+      } else {
+        nextUrl.searchParams.delete('q');
+      }
+
+      window.history.replaceState({}, '', nextUrl);
+    };
+
+    const search = () => {
+      const query = input.value.trim();
+      syncQuery(query);
+      render(query);
+    };
+
+    input.addEventListener('input', search);
+
+    fetch(searchIndexUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        searchEntries = data;
+        render(initialQuery);
+      })
+      .catch(() => {
+        status.textContent = 'Failed to load the search index. Please refresh and try again.';
+      });
+  </script>
+</BaseLayout>

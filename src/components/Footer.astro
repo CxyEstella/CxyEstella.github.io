@@ -1,0 +1,19 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/site.config';
+import { withBase } from '@/lib/urls';
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <p class="site-footer__title">{SITE_TITLE}</p>
+      <p class="site-footer__text">{SITE_DESCRIPTION}</p>
+    </div>
+    <div class="site-footer__links">
+      <a href={withBase('/feed.xml')}>RSS</a>
+      <a href={withBase('/search/')}>搜索</a>
+      <a href={withBase('/about/')}>关于</a>
+    </div>
+  </div>
+</footer>
+

@@ -1,0 +1,54 @@
+---
+title: 搭一套可持续的学习节奏
+description: 把“想学很多”拆成可维护的节奏设计，而不是依赖短期冲动。
+pubDate: 2026-03-16
+updatedDate: 2026-03-21
+tags:
+  - 学习方法
+  - 知识管理
+  - 习惯
+series: 学习系统
+cover: ./cover.svg
+coverAlt: 一张写有节奏分层的学习计划图
+---
+
+## 我现在更相信节奏，而不是毅力
+
+如果任务长期存在，真正决定能否坚持的往往不是意志力，而是系统有没有把阻力降到足够低。
+
+## 一个最小学习循环
+
+我把每天的学习拆成三个层次：
+
+1. 输入：阅读、看课、看文档
+2. 输出：写一小段总结
+3. 固化：把结论整理成标签化笔记
+
+### 一个简单的公式
+
+如果把每天的有效积累记作 $G$，输入、输出、回顾的贡献可以粗略写成：
+
+$$
+G = \alpha I + \beta O + \gamma R
+$$
+
+这里真正容易被忽略的是 $R$，也就是回顾与再组织。
+
+## 一个最小脚手架
+
+```ts
+type DailyLoop = {
+  input: number;
+  output: number;
+  review: number;
+};
+
+export function isSustainable(loop: DailyLoop) {
+  return loop.input >= 1 && loop.output >= 1 && loop.review >= 1;
+}
+```
+
+## 接下来想验证什么
+
+我想继续观察：当笔记真正能被“搜到并复用”之后，学习的主观负担会不会明显下降。
+

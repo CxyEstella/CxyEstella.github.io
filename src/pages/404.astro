@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/lib/urls';
+---
+
+<BaseLayout title="页面不存在" description="这个页面可能已经移动或还没有被创建。">
+  <div class="container">
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow">404</p>
+        <h1>这页暂时还没有靠岸。</h1>
+        <p>你可以回首页、去归档，或者直接用搜索找文章。</p>
+        <div class="hero__actions">
+          <a class="button-link button-link--primary" href={withBase('/')}>
+            回到首页
+          </a>
+          <a class="button-link button-link--secondary" href={withBase('/search/')}>
+            打开搜索
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

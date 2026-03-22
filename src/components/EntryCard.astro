@@ -1,0 +1,49 @@
+---
+import TagChip from '@/components/TagChip.astro';
+import {
+  collectionMeta,
+  estimateReadingMinutes,
+  formatDate,
+  getEntryUrl,
+  type AnyEntry,
+} from '@/lib/content';
+import { withBase } from '@/lib/urls';
+
+interface Props {
+  entry: AnyEntry;
+  showCollection?: boolean;
+}
+
+const { entry, showCollection = false } = Astro.props;
+const meta = collectionMeta[entry.collection];
+---
+
+<article class="entry-card">
+  <div class="entry-card__meta">
+    {
+      showCollection && (
+        <span class="entry-card__collection">
+          {meta.title}
+        </span>
+      )
+    }
+    <span>{formatDate(entry.data.pubDate)}</span>
+    <span>{estimateReadingMinutes(entry)} 分钟</span>
+  </div>
+
+  <h3 class="entry-card__title">
+    <a href={withBase(getEntryUrl(entry))}>{entry.data.title}</a>
+  </h3>
+
+  <p class="entry-card__description">{entry.data.description}</p>
+
+  <div class="entry-card__footer">
+    <div class="entry-card__tags">
+      {entry.data.tags.slice(0, 4).map((tag) => <TagChip tag={tag} />)}
+    </div>
+    <a class="entry-card__link" href={withBase(getEntryUrl(entry))}>
+      阅读全文
+    </a>
+  </div>
+</article>
+

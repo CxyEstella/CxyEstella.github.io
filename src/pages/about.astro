@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于" description="关于这个个人博客的写作范围与组织方式。">
+  <div class="container">
+    <header class="page-header">
+      <p class="eyebrow">About</p>
+      <h1 class="page-title">关于这个站</h1>
+      <p class="page-lead">
+        这是一个以长期写作为目标的个人博客。它不追求“像社交媒体那样快速更新”，而是更关注把零散的阅读、
+        学习、生活记录和项目经验沉淀成一套可以反复检索、持续修订的资料库。
+      </p>
+    </header>
+
+    <div class="entry-grid">
+      <article class="entry-card">
+        <h2 class="entry-card__title">Blog</h2>
+        <p class="entry-card__description">放生活记录、随笔、阶段总结和比较完整的博客文章。</p>
+      </article>
+      <article class="entry-card">
+        <h2 class="entry-card__title">Reading</h2>
+        <p class="entry-card__description">放论文、书籍或报告的阅读笔记，偏输入和思考整理。</p>
+      </article>
+      <article class="entry-card">
+        <h2 class="entry-card__title">Notes</h2>
+        <p class="entry-card__description">放课程笔记、知识卡片、技术备忘录，偏学习沉淀。</p>
+      </article>
+      <article class="entry-card">
+        <h2 class="entry-card__title">Projects</h2>
+        <p class="entry-card__description">放项目日志与复盘，记录背景、方法、过程和后续计划。</p>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+

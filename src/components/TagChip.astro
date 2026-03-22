@@ -1,0 +1,14 @@
+---
+import { withBase } from '@/lib/urls';
+
+interface Props {
+  tag: string;
+}
+
+const { tag } = Astro.props;
+---
+
+<a class="tag-chip" href={withBase(`/tags/${encodeURIComponent(tag)}/`)}>
+  #{tag}
+</a>
+

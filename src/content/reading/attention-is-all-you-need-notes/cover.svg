@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" rx="48" fill="#f4e8d6" />
+  <g fill="none" stroke="#bc6d39" stroke-width="6" opacity="0.65">
+    <path d="M180 180C320 220 380 300 520 340" />
+    <path d="M180 300C320 320 420 380 560 450" />
+    <path d="M180 420C360 410 460 430 700 520" />
+    <path d="M380 180C560 220 700 280 960 240" />
+    <path d="M380 300C560 320 760 380 1020 420" />
+    <path d="M380 420C620 440 760 480 980 560" />
+  </g>
+  <g fill="#934a1f">
+    <circle cx="180" cy="180" r="22" />
+    <circle cx="180" cy="300" r="22" />
+    <circle cx="180" cy="420" r="22" />
+    <circle cx="380" cy="180" r="22" />
+    <circle cx="380" cy="300" r="22" />
+    <circle cx="380" cy="420" r="22" />
+    <circle cx="960" cy="240" r="22" />
+    <circle cx="1020" cy="420" r="22" />
+    <circle cx="980" cy="560" r="22" />
+  </g>
+  <text x="120" y="100" fill="#6d3416" font-family="Georgia, serif" font-size="64">Transformer Notes</text>
+</svg>
+

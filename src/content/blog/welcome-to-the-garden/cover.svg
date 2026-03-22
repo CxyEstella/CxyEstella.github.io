@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#f1ddbf" />
+      <stop offset="100%" stop-color="#d78c5a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" rx="48" fill="url(#bg)" />
+  <rect x="88" y="84" width="1024" height="552" rx="32" fill="#fff8ef" opacity="0.74" />
+  <path d="M188 236h390M188 308h824M188 380h730M188 452h542" stroke="#9d5e33" stroke-linecap="round" stroke-width="18" opacity="0.5" />
+  <text x="188" y="190" fill="#6e3317" font-family="Georgia, serif" font-size="72">Paper Garden</text>
+</svg>
+

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EntryCard from '@/components/EntryCard.astro';
+import { collectionMeta, getEntries } from '@/lib/content';
+
+const entries = await getEntries('notes');
+const meta = collectionMeta.notes;
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  <div class="container">
+    <header class="page-header">
+      <p class="eyebrow">{meta.summary}</p>
+      <h1 class="page-title">{meta.title}</h1>
+      <p class="page-lead">{meta.description}</p>
+    </header>
+    <div class="entry-grid">
+      {entries.map((entry) => <EntryCard entry={entry} />)}
+    </div>
+  </div>
+</BaseLayout>
+

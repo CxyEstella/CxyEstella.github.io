@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import {
+  collectionMeta,
+  formatCompactDate,
+  getAllEntries,
+  getEntryUrl,
+  groupEntriesByMonth,
+} from '@/lib/content';
+import { withBase } from '@/lib/urls';
+
+const entries = await getAllEntries();
+const groups = groupEntriesByMonth(entries);
+---
+
+<BaseLayout title="归档" description="按时间查看全站文章归档。">
+  <div class="container">
+    <header class="page-header">
+      <p class="eyebrow">Archive</p>
+      <h1 class="page-title">归档</h1>
+      <p class="page-lead">按月份查看所有内容，适合追踪写作节奏和项目推进脉络。</p>
+    </header>
+
+    <div class="archive-stack">
+      {
+        groups.map((group) => (
+          <section class="archive-group">
+            <h2>{group.label}</h2>
+            <div class="archive-group__list">
+              {group.entries.map((entry) => (
+                <article class="archive-item">
+                  <div>
+                    <a href={withBase(getEntryUrl(entry))}>{entry.data.title}</a>
+                    <p class="archive-item__meta">{collectionMeta[entry.collection].summary}</p>
+                  </div>
+                  <span class="archive-item__date">{formatCompactDate(entry.data.pubDate)}</span>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+

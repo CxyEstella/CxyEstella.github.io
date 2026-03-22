@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EntryCard from '@/components/EntryCard.astro';
+import { getAllEntries } from '@/lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getAllEntries();
+  const tags = Array.from(new Set(entries.flatMap((entry) => entry.data.tags)));
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      entries: entries.filter((entry) => entry.data.tags.includes(tag)),
+    },
+  }));
+}
+
+const { tag, entries } = Astro.props;
+---
+
+<BaseLayout title={`标签：${tag}`} description={`查看标签 ${tag} 下的所有内容。`}>
+  <div class="container">
+    <header class="page-header">
+      <p class="eyebrow">Tag</p>
+      <h1 class="page-title">#{tag}</h1>
+      <p class="page-lead">这个标签下共有 {entries.length} 篇内容。</p>
+    </header>
+    <div class="entry-grid">
+      {entries.map((entry) => <EntryCard entry={entry} showCollection />)}
+    </div>
+  </div>
+</BaseLayout>
+

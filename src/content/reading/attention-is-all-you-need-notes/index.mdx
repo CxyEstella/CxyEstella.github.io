@@ -1,0 +1,55 @@
+---
+title: 《Attention Is All You Need》阅读笔记
+description: 从模型结构、注意力公式到训练直觉，对 Transformer 论文做一次重读。
+pubDate: 2026-03-18
+updatedDate: 2026-03-20
+tags:
+  - 论文阅读
+  - Transformer
+  - 深度学习
+authors:
+  - Ashish Vaswani
+  - Noam Shazeer
+  - Niki Parmar
+source: NeurIPS
+year: 2017
+paperUrl: https://arxiv.org/abs/1706.03762
+takeaway: 用自注意力替代循环结构之后，模型在并行性和长距离依赖建模上都有明显优势。
+cover: ./cover.svg
+coverAlt: 一个由注意力连线构成的抽象封面图
+---
+
+![注意力示意图](./attention-map.svg)
+
+## 论文想解决什么问题
+
+作者试图摆脱循环神经网络对顺序计算的依赖，让序列模型能够更好地并行训练，同时保留长距离依赖建模能力。
+
+## 最核心的公式
+
+缩放点积注意力写作：
+
+$$
+\operatorname{Attention}(Q, K, V) = \operatorname{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+这个式子里最容易忽略的，其实是分母里的 $\sqrt{d_k}$。它是为了避免维度增大后点积过大，从而让 softmax 进入梯度不稳定的区域。
+
+### 我的理解
+
+如果把每个 token 看成一张“查询卡片”，那么注意力机制就是在所有上下文里找最值得参考的几张卡片，然后加权汇总。
+
+## 代码感受
+
+下面这段伪代码最能帮助我快速回忆流程：
+
+```python
+scores = (Q @ K.transpose(-2, -1)) / math.sqrt(d_k)
+weights = softmax(scores, dim=-1)
+context = weights @ V
+```
+
+## 一个值得继续追的问题
+
+Transformer 解决了并行问题，但它并没有免费获得无限上下文。序列长度增长后，注意力计算仍然会带来明显成本，这也是后来长上下文模型不断优化的方向。
+
