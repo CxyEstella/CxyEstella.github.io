@@ -456,6 +456,11 @@ html[data-theme='light'] .button-link--primary {
   margin: 0;
 }
 
+.translation-missing {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
 .post-layout {
   display: block;
 }

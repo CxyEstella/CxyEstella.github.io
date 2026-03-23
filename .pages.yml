@@ -144,6 +144,9 @@ content:
       - name: paperUrl
         label: Paper URL
         type: string
+      - name: translationUrl
+        label: Translation PDF URL
+        type: string
       - name: takeaway
         label: Takeaway
         type: text

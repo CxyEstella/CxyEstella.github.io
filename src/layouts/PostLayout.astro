@@ -85,6 +85,14 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
                   <a href={entry.data.paperUrl} target="_blank" rel="noreferrer">
                     Open link
                   </a>
+                  {' · '}
+                  {entry.data.translationUrl ? (
+                    <a href={entry.data.translationUrl} target="_blank" rel="noreferrer">
+                      Translation
+                    </a>
+                  ) : (
+                    <span class="translation-missing">暂无翻译</span>
+                  )}
                 </dd>
               </>
             )}
