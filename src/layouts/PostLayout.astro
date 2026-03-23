@@ -22,6 +22,7 @@ interface Props {
 
 const { entry, headings } = Astro.props;
 const meta = collectionMeta[entry.collection];
+const hasToc = headings.some((heading) => heading.depth >= 2 && heading.depth <= 3);
 const cover = entry.data.cover;
 const coverSrc = typeof cover === 'string' ? cover : cover?.src;
 const coverWidth = typeof cover === 'string' ? undefined : cover?.width;
@@ -144,10 +145,14 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
       }
     </header>
 
-    <div class="post-layout">
-      <aside class="post-sidebar">
-        <TableOfContents headings={headings} />
-      </aside>
+    <div class:list={['post-layout', { 'post-layout--no-toc': !hasToc }]}>
+      {
+        hasToc && (
+          <aside class="post-sidebar">
+            <TableOfContents headings={headings} />
+          </aside>
+        )
+      }
       <div class="prose post-content">
         <slot />
       </div>
