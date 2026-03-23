@@ -3,6 +3,7 @@ import { defineCollection, z } from 'astro:content';
 const baseSchema = ({ image }) =>
   z.object({
     title: z.string(),
+    slug: z.string().optional(),
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
@@ -10,7 +11,7 @@ const baseSchema = ({ image }) =>
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     toc: z.boolean().default(true),
-    cover: image().optional(),
+    cover: z.union([image(), z.string()]).optional(),
     coverAlt: z.string().optional(),
   });
 

@@ -11,6 +11,7 @@ export const NAV_LINKS = [
   { href: '/archive/', label: '归档' },
   { href: '/tags/', label: '标签' },
   { href: '/about/', label: '关于' },
+  { href: '/cms/', label: 'CMS' },
 ] as const;
 
 export const COLLECTION_LABELS = {
@@ -19,4 +20,3 @@ export const COLLECTION_LABELS = {
   notes: 'Notes',
   projects: 'Projects',
 } as const;
-

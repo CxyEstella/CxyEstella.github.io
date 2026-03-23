@@ -23,6 +23,10 @@ interface Props {
 
 const { entry, headings } = Astro.props;
 const meta = collectionMeta[entry.collection];
+const cover = entry.data.cover;
+const coverSrc = typeof cover === 'string' ? cover : cover?.src;
+const coverWidth = typeof cover === 'string' ? undefined : cover?.width;
+const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
@@ -46,12 +50,12 @@ const meta = collectionMeta[entry.collection];
       </div>
 
       {
-        entry.data.cover && (
+        coverSrc && (
           <img
             class="post-cover"
-            src={entry.data.cover.src}
-            width={entry.data.cover.width}
-            height={entry.data.cover.height}
+            src={coverSrc}
+            width={coverWidth}
+            height={coverHeight}
             alt={entry.data.coverAlt ?? entry.data.title}
             loading="eager"
           />
@@ -145,4 +149,3 @@ const meta = collectionMeta[entry.collection];
     </div>
   </article>
 </BaseLayout>
-

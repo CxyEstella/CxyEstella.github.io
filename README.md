@@ -13,6 +13,7 @@
 - 站内搜索
 - 暗色模式
 - GitHub Pages 自动部署
+- Pages CMS 可视化内容编辑
 
 ## 本地启动
 
@@ -60,6 +61,20 @@ src/content/notes/my-note/
 
 1. 创建 GitHub 仓库
 2. 推送代码到 `main`
-3. 在仓库 `Settings -> Pages` 中确认 Source 为 `GitHub Actions`
+3. 在仓库 `Settings -> Pages` 中确认 `Source` 为 `GitHub Actions`
 4. 等待 `.github/workflows/deploy.yml` 执行完成
 
+## Visual Editing With Pages CMS
+
+这个仓库已经包含 `.pages.yml` 配置，你可以直接使用 [Pages CMS](https://app.pagescms.org/) 在浏览器里编辑内容。
+
+使用方法：
+
+1. 打开 `https://app.pagescms.org/`
+2. 用 GitHub 账号登录
+3. 选择仓库 `CxyEstella/CxyEstella.github.io`
+4. 在 `Blog`、`Reading`、`Notes`、`Projects` 里编辑内容
+5. 保存并发布
+
+CMS 上传的图片会放在 `public/uploads/`。
+如果文章里用了复杂 MDX 语法、数学公式或比较特殊的格式，发布前仍然建议简单检查一下源码。

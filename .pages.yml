@@ -1,0 +1,303 @@
+settings:
+  content:
+    merge: true
+
+media:
+  - name: uploads
+    label: Uploads
+    input: public/uploads
+    output: /uploads
+    extensions: [jpg, jpeg, png, webp, gif, svg]
+
+content:
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename: "{slug}/index.mdx"
+    subfolders: true
+    view:
+      primary: title
+      fields: [title, pubDate, tags]
+      sort: [updatedDate, pubDate, title]
+      search: [title, description, tags, body]
+      default:
+        sort: updatedDate
+        order: desc
+      node:
+        filename: index.mdx
+        hideDirs: all
+    fields: &base_fields
+      - name: title
+        label: Title
+        type: string
+      - name: slug
+        label: Slug
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published
+        type: date
+      - name: updatedDate
+        label: Updated
+        type: date
+      - name: tags
+        label: Tags
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: featured
+        label: Featured
+        type: boolean
+      - name: toc
+        label: Show TOC
+        type: boolean
+      - name: cover
+        label: Cover Image
+        type: image
+        options:
+          media: uploads
+      - name: coverAlt
+        label: Cover Alt
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          media: uploads
+          path: blog
+          extensions: [jpg, jpeg, png, webp, gif, svg]
+
+  - name: reading
+    label: Reading
+    type: collection
+    path: src/content/reading
+    format: yaml-frontmatter
+    filename: "{slug}/index.mdx"
+    subfolders: true
+    view:
+      primary: title
+      fields: [title, authors, pubDate]
+      sort: [updatedDate, pubDate, title]
+      search: [title, description, authors, tags, takeaway, body]
+      default:
+        sort: updatedDate
+        order: desc
+      node:
+        filename: index.mdx
+        hideDirs: all
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: slug
+        label: Slug
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published
+        type: date
+      - name: updatedDate
+        label: Updated
+        type: date
+      - name: tags
+        label: Tags
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: toc
+        label: Show TOC
+        type: boolean
+      - name: cover
+        label: Cover Image
+        type: image
+        options:
+          media: uploads
+      - name: coverAlt
+        label: Cover Alt
+        type: string
+      - name: authors
+        label: Authors
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: source
+        label: Source
+        type: string
+      - name: year
+        label: Year
+        type: number
+      - name: paperUrl
+        label: Paper URL
+        type: string
+      - name: takeaway
+        label: Takeaway
+        type: text
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          media: uploads
+          path: reading
+          extensions: [jpg, jpeg, png, webp, gif, svg]
+
+  - name: notes
+    label: Notes
+    type: collection
+    path: src/content/notes
+    format: yaml-frontmatter
+    filename: "{slug}/index.mdx"
+    subfolders: true
+    view:
+      primary: title
+      fields: [title, series, pubDate]
+      sort: [updatedDate, pubDate, title]
+      search: [title, description, series, tags, body]
+      default:
+        sort: updatedDate
+        order: desc
+      node:
+        filename: index.mdx
+        hideDirs: all
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: slug
+        label: Slug
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published
+        type: date
+      - name: updatedDate
+        label: Updated
+        type: date
+      - name: tags
+        label: Tags
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: toc
+        label: Show TOC
+        type: boolean
+      - name: cover
+        label: Cover Image
+        type: image
+        options:
+          media: uploads
+      - name: coverAlt
+        label: Cover Alt
+        type: string
+      - name: series
+        label: Series
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          media: uploads
+          path: notes
+          extensions: [jpg, jpeg, png, webp, gif, svg]
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename: "{slug}/index.mdx"
+    subfolders: true
+    view:
+      primary: title
+      fields: [title, status, pubDate]
+      sort: [updatedDate, pubDate, title]
+      search: [title, description, status, stack, tags, body]
+      default:
+        sort: updatedDate
+        order: desc
+      node:
+        filename: index.mdx
+        hideDirs: all
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: slug
+        label: Slug
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published
+        type: date
+      - name: updatedDate
+        label: Updated
+        type: date
+      - name: tags
+        label: Tags
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: toc
+        label: Show TOC
+        type: boolean
+      - name: cover
+        label: Cover Image
+        type: image
+        options:
+          media: uploads
+      - name: coverAlt
+        label: Cover Alt
+        type: string
+      - name: status
+        label: Status
+        type: select
+        options:
+          values: [planning, active, paused, done, archived]
+      - name: stack
+        label: Stack
+        type: select
+        options:
+          multiple: true
+          creatable: true
+      - name: repoUrl
+        label: Repo URL
+        type: string
+      - name: startedDate
+        label: Started
+        type: date
+      - name: finishedDate
+        label: Finished
+        type: date
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          media: uploads
+          path: projects
+          extensions: [jpg, jpeg, png, webp, gif, svg]
