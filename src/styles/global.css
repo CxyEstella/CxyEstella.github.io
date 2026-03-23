@@ -143,13 +143,6 @@ select {
   text-transform: uppercase;
 }
 
-.site-header__brand-subtitle {
-  display: block;
-  color: var(--text-muted);
-  font-size: 0.84rem;
-  font-family: var(--font-mono);
-}
-
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -295,8 +288,7 @@ select {
 .site-footer__text,
 .search-panel__hint,
 .search-result__description,
-.section-header p,
-.site-header__brand-subtitle {
+.section-header p {
   color: var(--text-muted);
 }
 
@@ -393,18 +385,6 @@ html[data-theme='light'] .button-link--primary {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.entry-card__footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
-.entry-card__link {
-  color: var(--accent-strong);
-  font-family: var(--font-mono);
-  font-size: 0.92rem;
 }
 
 .page-header {
