@@ -5,14 +5,10 @@ import { withBase } from '@/lib/urls';
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <div>
-      <p class="site-footer__title">{SITE_TITLE}</p>
-      <p class="site-footer__text">A quiet place for notes, reading logs, and project records.</p>
-    </div>
+    <p class="site-footer__title">{SITE_TITLE}</p>
     <div class="site-footer__links">
       <a href={withBase('/feed.xml')}>RSS</a>
       <a href={withBase('/search/')}>搜索</a>
-      <a href={withBase('/cms/')}>CMS</a>
     </div>
   </div>
 </footer>
