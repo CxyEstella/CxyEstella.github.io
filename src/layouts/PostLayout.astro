@@ -33,13 +33,13 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
   <article class="container post-shell">
     <header class="post-header">
       <a class="post-header__back" href={withBase(`/${entry.collection}/`)}>
-        返回 {meta.title}
+        Back to {meta.title}
       </a>
 
       <div class="post-header__eyebrow">
         <span>{meta.title}</span>
         <span>{formatDate(entry.data.pubDate)}</span>
-        <span>{estimateReadingMinutes(entry)} 分钟</span>
+        <span>{estimateReadingMinutes(entry)} min read</span>
       </div>
 
       <h1>{entry.data.title}</h1>
@@ -67,35 +67,35 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
           <dl class="meta-grid">
             {entry.data.authors.length > 0 && (
               <>
-                <dt>作者</dt>
+                <dt>Authors</dt>
                 <dd>{entry.data.authors.join(' / ')}</dd>
               </>
             )}
             {entry.data.source && (
               <>
-                <dt>来源</dt>
+                <dt>Source</dt>
                 <dd>{entry.data.source}</dd>
               </>
             )}
             {entry.data.year && (
               <>
-                <dt>年份</dt>
+                <dt>Year</dt>
                 <dd>{entry.data.year}</dd>
               </>
             )}
             {entry.data.paperUrl && (
               <>
-                <dt>原文</dt>
+                <dt>Paper</dt>
                 <dd>
                   <a href={entry.data.paperUrl} target="_blank" rel="noreferrer">
-                    查看链接
+                    Open link
                   </a>
                 </dd>
               </>
             )}
             {entry.data.takeaway && (
               <>
-                <dt>一句话结论</dt>
+                <dt>Takeaway</dt>
                 <dd>{entry.data.takeaway}</dd>
               </>
             )}
@@ -106,32 +106,32 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
       {
         entry.collection === 'projects' && (
           <dl class="meta-grid">
-            <dt>状态</dt>
+            <dt>Status</dt>
             <dd>{entry.data.status}</dd>
             {entry.data.stack.length > 0 && (
               <>
-                <dt>技术栈</dt>
+                <dt>Stack</dt>
                 <dd>{entry.data.stack.join(' / ')}</dd>
               </>
             )}
             {entry.data.startedDate && (
               <>
-                <dt>开始时间</dt>
+                <dt>Started</dt>
                 <dd>{formatDate(entry.data.startedDate)}</dd>
               </>
             )}
             {entry.data.finishedDate && (
               <>
-                <dt>结束时间</dt>
+                <dt>Finished</dt>
                 <dd>{formatDate(entry.data.finishedDate)}</dd>
               </>
             )}
             {entry.data.repoUrl && (
               <>
-                <dt>仓库</dt>
+                <dt>Repo</dt>
                 <dd>
                   <a href={entry.data.repoUrl} target="_blank" rel="noreferrer">
-                    打开仓库
+                    Open repository
                   </a>
                 </dd>
               </>

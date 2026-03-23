@@ -14,7 +14,7 @@ import { withBase } from '@/lib/urls';
 
 const allEntries = await getAllEntries();
 const latestEntries = allEntries.slice(0, 6);
-const tagList = getUniqueTags(allEntries).slice(0, 14);
+const tagList = getUniqueTags(allEntries).slice(0, 12);
 const collectionSummaries = await Promise.all(
   COLLECTIONS.map(async (collection) => ({
     key: collection,
@@ -26,42 +26,58 @@ const collectionSummaries = await Promise.all(
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="container">
-    <section class="hero">
+    <section class="hero hero--minimal">
       <div class="hero__copy">
-        <p class="eyebrow">个人知识花园</p>
-        <h1>把阅读、学习、生活和项目过程，慢慢写成一座可检索的花园。</h1>
+        <p class="eyebrow">PERSONAL KNOWLEDGE SYSTEM</p>
+        <h1>简洁、可检索、长期维护的个人技术博客。</h1>
         <p>
-          这里用来放文献阅读笔记、生活记录、学习沉淀与项目日志。文章支持
-          Markdown、图片、数学公式和带高亮的代码块，也提供了站内搜索与暗色模式。
+          这里用来放阅读笔记、学习整理、生活记录和项目日志。风格尽量克制，结构尽量清楚，
+          让内容本身成为主角。
         </p>
         <div class="hero__actions">
-          <a class="button-link button-link--primary" href={withBase('/search/')}>
-            开始搜索
+          <a class="button-link button-link--primary" href={withBase('/notes/')}>
+            Start reading
           </a>
-          <a class="button-link button-link--secondary" href={withBase('/reading/')}>
-            浏览阅读笔记
+          <a class="button-link button-link--secondary" href={withBase('/search/')}>
+            Search index
           </a>
         </div>
         <ul class="hero__stats">
-          <li>共 {allEntries.length} 篇内容</li>
-          <li>{collectionSummaries.length} 个分区</li>
-          <li>支持 RSS 订阅</li>
+          <li>
+            <span>entries</span>
+            <strong>{allEntries.length}</strong>
+          </li>
+          <li>
+            <span>sections</span>
+            <strong>{collectionSummaries.length}</strong>
+          </li>
+          <li>
+            <span>deploy</span>
+            <strong>GitHub Pages</strong>
+          </li>
         </ul>
       </div>
 
-      <div class="panel">
-        <div class="panel" style="padding: 1.4rem;">
-          <p class="eyebrow">内容结构</p>
-          <div class="tag-stack">
-            {
-              collectionSummaries.map(({ key, meta, count }) => (
-                <a class="collection-tile" href={withBase(`/${key}/`)}>
-                  <h3>{meta.title}</h3>
-                  <p>{meta.description}</p>
-                  <small>{count} 篇内容</small>
-                </a>
-              ))
-            }
+      <div class="hero__visual">
+        <div class="hero-terminal">
+          <div class="hero-terminal__top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="hero-terminal__body">
+            <img
+              class="hero-terminal__logo"
+              src={withBase('/brand-logo.jpg')}
+              alt="Site logo"
+              width="960"
+              height="640"
+            />
+            <div class="hero-terminal__meta">
+              <p>$ tree content</p>
+              <p>blog/ reading/ notes/ projects/</p>
+              <p>$ status: active knowledge garden</p>
+            </div>
           </div>
         </div>
       </div>
@@ -70,23 +86,8 @@ const collectionSummaries = await Promise.all(
     <section class="section">
       <div class="section-header">
         <div>
-          <h2 class="section-title">最新更新</h2>
-          <p>按更新时间排序，方便你先看到最近在写什么。</p>
-        </div>
-        <a class="button-link button-link--secondary" href={withBase('/archive/')}>
-          查看归档
-        </a>
-      </div>
-      <div class="entry-grid">
-        {latestEntries.map((entry) => <EntryCard entry={entry} showCollection />)}
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">按分区阅读</h2>
-          <p>四个栏目分别承担不同写作目的，结构清晰，后续扩展也方便。</p>
+          <h2 class="section-title">Sections</h2>
+          <p>四个栏目分工明确，适合长期写作和归档。</p>
         </div>
       </div>
       <div class="collection-grid">
@@ -96,7 +97,7 @@ const collectionSummaries = await Promise.all(
               <p class="eyebrow">{meta.summary}</p>
               <h3>{meta.title}</h3>
               <p>{meta.description}</p>
-              <small>{count} 篇内容</small>
+              <small>{count} entries</small>
             </a>
           ))
         }
@@ -106,12 +107,24 @@ const collectionSummaries = await Promise.all(
     <section class="section">
       <div class="section-header">
         <div>
-          <h2 class="section-title">常用标签</h2>
-          <p>标签页适合做跨分区查找，比如一个主题同时出现在阅读和项目记录里。</p>
+          <h2 class="section-title">Latest Updates</h2>
+          <p>先看最近在写什么，再决定往哪个分区继续深入。</p>
         </div>
-        <a class="button-link button-link--secondary" href={withBase('/tags/')}>
-          所有标签
+        <a class="button-link button-link--secondary" href={withBase('/archive/')}>
+          View archive
         </a>
+      </div>
+      <div class="entry-grid">
+        {latestEntries.map((entry) => <EntryCard entry={entry} showCollection />)}
+      </div>
+    </section>
+
+    <section class="section section--compact">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Common Tags</h2>
+          <p>跨栏目检索时，标签是最快的入口。</p>
+        </div>
       </div>
       <div class="footer-tags">
         {tagList.map((tag) => <TagChip tag={tag} />)}
@@ -119,4 +132,3 @@ const collectionSummaries = await Promise.all(
     </section>
   </div>
 </BaseLayout>
-

@@ -16,8 +16,17 @@ function isActive(href: string) {
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-header__brand" href={withBase('/')}>
-      <span class="site-header__brand-mark">纸舟</span>
-      <span class="site-header__brand-text">{SITE_TITLE}</span>
+      <img
+        class="site-header__brand-logo"
+        src={withBase('/brand-logo.jpg')}
+        alt={`${SITE_TITLE} logo`}
+        width="48"
+        height="48"
+      />
+      <span>
+        <strong class="site-header__brand-text">{SITE_TITLE}</strong>
+        <span class="site-header__brand-subtitle">notes / reading / projects</span>
+      </span>
     </a>
 
     <nav class="site-nav" aria-label="主导航">
@@ -43,11 +52,10 @@ function isActive(href: string) {
           class="search-mini__input"
           type="search"
           name="q"
-          placeholder="搜索文章、标签、项目"
+          placeholder="搜索文章 / 标签 / 项目"
         />
       </form>
       <ThemeToggle />
     </div>
   </div>
 </header>
-

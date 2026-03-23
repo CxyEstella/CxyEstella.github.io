@@ -16,22 +16,22 @@ export const collectionMeta: Record<
   blog: {
     title: 'Blog',
     summary: '生活记录与随笔',
-    description: '放置日常写作、阶段总结、生活片段与长文博客。',
+    description: '日常写作、阶段总结、生活片段与较完整的博客文章。',
   },
   reading: {
     title: 'Reading',
     summary: '文献阅读与书目卡片',
-    description: '记录论文、书籍和报告的阅读笔记、拆解与延伸问题。',
+    description: '论文、书籍和报告的阅读笔记、拆解与延伸问题。',
   },
   notes: {
     title: 'Notes',
     summary: '学习笔记与知识整理',
-    description: '持续积累课程笔记、概念解释、代码片段与方法总结。',
+    description: '课程笔记、概念解释、代码片段与方法总结。',
   },
   projects: {
     title: 'Projects',
     summary: '项目记录与迭代日志',
-    description: '记录项目动机、过程决策、踩坑、复盘与后续计划。',
+    description: '项目动机、过程决策、踩坑记录、复盘与后续计划。',
   },
 };
 
