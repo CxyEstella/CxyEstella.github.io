@@ -27,6 +27,12 @@ const cover = entry.data.cover;
 const coverSrc = typeof cover === 'string' ? cover : cover?.src;
 const coverWidth = typeof cover === 'string' ? undefined : cover?.width;
 const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
+const translationHref =
+  entry.collection === 'reading' && entry.data.translationUrl
+    ? entry.data.translationUrl.startsWith('/')
+      ? withBase(entry.data.translationUrl)
+      : entry.data.translationUrl
+    : undefined;
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
@@ -79,16 +85,20 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
                 <dd>{entry.data.year}</dd>
               </>
             )}
-            {entry.data.paperUrl && (
+            {(entry.data.paperUrl || translationHref) && (
               <>
                 <dt>Paper</dt>
                 <dd>
-                  <a href={entry.data.paperUrl} target="_blank" rel="noreferrer">
-                    Open link
-                  </a>
-                  {' · '}
-                  {entry.data.translationUrl ? (
-                    <a href={entry.data.translationUrl} target="_blank" rel="noreferrer">
+                  {entry.data.paperUrl ? (
+                    <a href={entry.data.paperUrl} target="_blank" rel="noreferrer">
+                      Open link
+                    </a>
+                  ) : (
+                    <span class="translation-missing">No paper link</span>
+                  )}
+                  {' / '}
+                  {translationHref ? (
+                    <a href={translationHref} target="_blank" rel="noreferrer">
                       Translation
                     </a>
                   ) : (

@@ -26,7 +26,7 @@ const reading = defineCollection({
       source: z.string().optional(),
       year: z.number().int().optional(),
       paperUrl: z.string().url().optional(),
-      translationUrl: z.string().url().optional(),
+      translationUrl: z.string().optional(),
       takeaway: z.string().optional(),
     }),
 });

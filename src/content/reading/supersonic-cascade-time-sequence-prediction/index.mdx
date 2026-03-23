@@ -1,22 +1,47 @@
 ---
 title: Research on time sequence prediction of supersonic cascade flow field based on compressed sensing artificial neural network
 slug: supersonic-cascade-time-sequence-prediction
-description: 文献占位页，后续补充问题背景、网络结构、时间序列预测方案与阅读笔记。
+description: 用压缩卷积-GRU 预测超声速叶栅流场时间序列，捕捉激波结构和分离区的时空演化。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - compressed-sensing
   - neural-network
   - supersonic-flow
-authors: []
+authors:
+  - Yunfei Li
+  - Juntao Chang
 source: Aerospace Science and Technology
+year: 2023
 paperUrl: https://doi.org/10.1016/j.ast.2023.108684
-takeaway: 待补充
+translationUrl: /uploads/translations/supersonic-cascade-time-sequence-prediction-cn.pdf
+takeaway: 文章把“看见未来若干时刻的流场”当作序列预测问题来做，而不是静态重建问题。
 ---
 
-## 待补充
+## 摘要
 
-- 研究对象
-- 网络结构
-- 压缩感知在其中的作用
-- 个人理解
+这篇文章针对的是超声速叶栅在背压变化下的流场状态监测问题。作者提出 `CC-GRU` 框架，把卷积结构嵌入 GRU 中，利用过去若干时刻的流场来预测未来的超声速叶栅流场。文章特别强调模型对细激波结构和流动分离区的预测能力，因为这些位置最能反映流场退化和不稳定。
+
+从阅读价值上看，这篇文章把流场重建进一步推进成了流场时序预测。它对你有启发的地方是：如果你关心的不是“当前场长什么样”，而是“下一时刻会往哪里发展”，那模型结构和训练目标都应该向 sequence modeling 靠拢。
+
+## Takeaway
+
+- 这篇文章更接近 flow forecasting，而不是常规 surrogate regression。
+- 卷积负责抽局部空间结构，GRU 负责串时间依赖，这种组合很适合非定常流场。
+- 如果以后你想做带激波结构的时间演化问题，这篇文章是很直接的参考。
+
+## 关键公式
+
+可以用卷积版 GRU 的更新方程抓住主线：
+
+$$
+\begin{aligned}
+z_t &= \sigma(W_z * x_t + U_z * h_{t-1}), \\
+r_t &= \sigma(W_r * x_t + U_r * h_{t-1}), \\
+\tilde{h}_t &= \tanh(W_h * x_t + U_h * (r_t \odot h_{t-1})), \\
+h_t &= (1-z_t)\odot h_{t-1} + z_t \odot \tilde{h}_t.
+\end{aligned}
+$$
+
+这里的卷积 `*` 用来处理流场的空间局部结构，而门控机制负责保留时间上的记忆。

@@ -1,21 +1,45 @@
 ---
 title: Sensor placement for optimal aerodynamic data fusion
 slug: sensor-placement-aerodynamic-data-fusion
-description: 文献占位页，后续补充传感器布置策略、目标函数、实验验证与个人理解。
+description: 为 Gappy POD 数据融合设计最优传感器布置，用 Bayesian posterior 和信息增益来选点。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - sensor-placement
   - aerodynamic-data-fusion
-authors: []
-takeaway: 待补充
+  - gappy-pod
+authors:
+  - Alexander Barklage
+  - Mario Stradtner
+  - Philipp Bekemeyer
+source: Aerospace Science and Technology
+year: 2024
+paperUrl: https://doi.org/10.1016/j.ast.2024.109598
+translationUrl: /uploads/translations/sensor-placement-aerodynamic-data-fusion-cn.pdf
+takeaway: 传感器布置不是后处理问题，而是数据融合质量本身的一部分；这篇文章把它明确建成了信息增益最大化问题。
 ---
 
-## 待补充
+## 摘要
 
-- 研究目标
-- 传感器选点思路
-- 数据融合方法
-- 个人理解
+这篇文章面向的是 CFD、风洞和飞行试验数据融合场景。作者指出，哪怕数据融合算法本身没问题，如果离散传感器位置选得不好，最后重建的压力分布或气动量也会明显变差。因此文章把 `Gappy POD` 数据融合中的传感器布置单独拿出来，做成一个 Bayesian 最优实验设计问题。
 
-原文链接待补充。
+它的核心思路是：给定 POD 基底和观测噪声模型，用后验分布衡量某组传感器布置能够带来多少信息增益，然后通过遗传算法去优化组合型的选点问题。实验在二维翼型和 NASA CRM 上都表明，优化后的布置比常规布置和一些常见方法更稳。
+
+## Takeaway
+
+- 这篇文章很适合放在“数据融合之前先做实验设计”这条线上理解。
+- 它的价值不只是在气动上，也适用于任何基于低阶基底重建高维场的传感器选点问题。
+- Bayesian posterior + utility function 这套框架很适合迁移到你自己的传感器优化任务里。
+
+## 关键公式
+
+文章最核心的是把选点问题写成信息增益最大化：
+
+$$
+S^\star=\arg\max_{S}\; \mathbb{E}_{y}\!\left[
+\mathrm{KL}\bigl(p(a\mid y,S)\,\|\,p(a)\bigr)
+\right],
+$$
+
+其中 $a$ 是 POD 系数，$S$ 表示传感器位置集合。直观上就是选那组传感器，使观测后对系数不确定性的压缩最大。

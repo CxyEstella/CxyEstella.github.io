@@ -1,23 +1,48 @@
 ---
 title: On the impact of dimensionally-consistent and physics-based inner products for POD-Galerkin and least-squares model reduction of compressible flows
 slug: inner-products-pod-galerkin-lspg
-description: 文献占位页，后续补充不同内积定义对 POD-Galerkin 与 LSPG 降阶效果的影响。
+description: 讨论不同内积定义如何影响可压缩流 ROM 的模态提取、投影稳定性与误差表现。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - pod-galerkin
   - lspg
   - model-reduction
   - compressible-flow
-authors: []
-takeaway: 待补充
+authors:
+  - Eric J. Parish
+  - Francesco Rizzi
+source: Journal of Computational Physics
+year: 2023
+paperUrl: https://doi.org/10.1016/j.jcp.2023.112387
+takeaway: 这篇文章提醒你，ROM 里“用什么内积做 POD/残差最小化”不是无关紧要的实现细节，而是会直接改变模态和稳定性的建模选择。
 ---
 
-## 待补充
+## 摘要
 
-- 研究问题
-- 不同 inner product 的定义
-- 对 POD-Galerkin / LSPG 的影响
-- 个人理解
+这篇文章研究的是一个经常被忽略、但非常关键的问题：在可压缩流的 POD-Galerkin 与 `LSPG` 降阶里，内积到底该怎么定义。作者比较了普通欧氏内积、量纲一致的内积以及更贴近物理量守恒与热力学结构的内积，分析它们对 POD 模态、Galerkin 投影和最小二乘残差降阶表现的影响。
 
-原文链接待补充。
+文章的核心观点是，内积并不只是一个“数学权重矩阵”，它实际上决定了你把什么误差看得更重要、把什么物理量看成更接近。因此 ROM 的稳定性、收敛性和解释性都会被它影响。
+
+## Takeaway
+
+- 做 POD 时先问“在哪个内积空间里做 POD”，比只问“取几个模态”更重要。
+- 对可压缩流而言，直接用欧氏内积常常会把不同量纲变量混在一起，物理意义不够好。
+- 如果你之后做 ROM，这篇文章非常适合作为“权重矩阵 / 状态度量怎么选”的理论依据。
+
+## 关键公式
+
+文章的主线可以浓缩成两个表达：
+
+$$
+\langle u, v \rangle_M = u^\top M v,
+$$
+
+以及 LSPG 的残差最小化形式
+
+$$
+a^\star = \arg\min_a \|r(Va)\|_M^2.
+$$
+
+这里的关键就在于矩阵 $M$ 怎么选。不同的 $M$ 对应不同的状态度量，也会改变 POD 模态的排序和降阶模型的稳定性。

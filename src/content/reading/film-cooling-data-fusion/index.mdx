@@ -1,22 +1,44 @@
 ---
 title: Data fusion of film-cooling data with proper orthogonal decomposition and compressed sensing
 slug: film-cooling-data-fusion
-description: 文献占位页，后续补充 POD、压缩感知与 film-cooling 数据融合的具体做法。
+description: 用 CFD 提供 POD 基底，再用少量实验数据和压缩感知修正系数，重建高分辨率气膜冷却分布。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - pod
   - compressed-sensing
   - data-fusion
-authors: []
+authors:
+  - Yinbo Mao
+  - Ziyu Chen
+  - Xinrong Su
+  - Xin Yuan
 source: International Communications in Heat and Mass Transfer
+year: 2025
 paperUrl: https://doi.org/10.1016/j.icheatmasstransfer.2025.109518
-takeaway: 待补充
+translationUrl: /uploads/translations/film-cooling-data-fusion-cn.pdf
+takeaway: 高分辨率实验很难做的时候，可以让 CFD 先给出模态基底，再用少量真实测量把系数校正回来。
 ---
 
-## 待补充
+## 摘要
 
-- 数据来源
-- POD 与压缩感知如何结合
-- 重建效果与误差
-- 个人理解
+文章讨论的是气膜冷却表面测量“实验难、仿真又不完全可信”的典型矛盾。作者提出一套数据融合方案：先用 CFD 结果做 `POD` 分解得到空间基底，再利用少量实验测量和压缩感知来修正 POD 系数，从而重建一组既保留高分辨率、又更接近实验真实情况的融合数据。
+
+对你来说，这篇文章的重要性在于它把“仿真给结构，实验给校正”这条路线说得很清楚。它不是简单平均两类数据，而是通过低维模态空间把两者连起来，这对以后的流场重建、稀疏测量和代理建模都很有参考价值。
+
+## Takeaway
+
+- 这是一篇很典型的“低维表示 + 少量观测修正”的文章，思路可迁移性很强。
+- POD 给出的是空间结构先验，压缩感知负责用少量实验观测恢复或修正系数。
+- 如果实验成本高、光学测量受限，这种思路比单纯依赖 CFD 或单纯依赖实验更现实。
+
+## 关键公式
+
+文章的主线可以写成低阶展开与稀疏观测反演：
+
+$$
+\eta(x)\approx \bar{\eta}(x)+\sum_{i=1}^{r} a_i\,\phi_i(x),
+$$
+
+其中 $\phi_i(x)$ 来自 CFD 数据的 POD 模态，而系数 $a_i$ 通过少量实验观测进行修正。换句话说，实验数据不是直接重建全场，而是用来修正低维模态坐标。

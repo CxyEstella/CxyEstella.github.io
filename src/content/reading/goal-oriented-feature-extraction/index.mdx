@@ -1,22 +1,45 @@
 ---
 title: "Goal-Oriented Feature Extraction: A Novel Approach to Enhance Data-Driven Surrogate Models"
 slug: goal-oriented-feature-extraction
-description: 文献占位页，后续补充特征提取思路、代理模型表现和对当前工作的启发。
+description: 通过“目标导向”的隐藏特征学习，降低代理模型输入空间的维数与非线性。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - surrogate-model
   - feature-extraction
   - data-driven
-authors: []
+authors:
+  - Xu Wang
+  - Ruiqi Huang
+  - Jiaqing Kou
+  - Hui Tang
+  - Weiwei Zhang
 source: AIAA Journal
+year: 2026
 paperUrl: https://doi.org/10.2514/1.J065638
-takeaway: 待补充
+translationUrl: /uploads/translations/goal-oriented-feature-extraction-cn.pdf
+takeaway: 与其盲目做降维，不如让隐藏特征直接朝“更好预测目标输出”这件事去组织。
 ---
 
-## 待补充
+## 摘要
 
-- 核心问题
-- Goal-oriented feature extraction 的定义
-- 与常见 surrogate pipeline 的区别
-- 个人理解
+这篇文章关注高维代理模型中一个很常见的问题：输入空间太大、非线性太强，导致常见 surrogate 在精度、鲁棒性和泛化上都受限。作者提出 `goal-oriented feature extraction`，先用一个神经网络把原始高维输入映射到隐藏特征空间，再用与目标输出差异相关的约束去组织这组隐藏特征。
+
+文章的重点不是再造一个新的代理模型，而是给已有 surrogate 模型前面加一个更“面向任务”的特征层。数值实验和 RAE2822、ONERA M6 的气动案例都表明，这样做能提高预测精度，也能减小不同 surrogate 之间的表现差异。
+
+## Takeaway
+
+- 这篇文章很适合和传统 PCA、Autoencoder 降维对照着看，因为它更强调“为任务服务”。
+- 如果最终目标是气动系数、性能指标或某个工程输出，那特征提取就不该只追求重构误差。
+- 它提供的是一个前置模块思路，和 Kriging、RBF、RF 等代理模型都可以配合。
+
+## 关键公式
+
+抓住这篇文章的一个简化表达是：
+
+$$
+\hat{y}=g_{\phi}(h_{\theta}(x)),
+$$
+
+其中 $h_{\theta}(x)$ 是目标导向的隐藏特征。文章的关键思想是额外约束隐藏特征之间的距离，使它们更好地反映目标输出之间的差异，而不是只追求输入空间的压缩。

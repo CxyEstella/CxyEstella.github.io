@@ -1,22 +1,44 @@
 ---
 title: "Transolver: A Fast Transformer Solver for PDEs on General Geometries"
 slug: transolver-general-geometries
-description: 文献占位页，后续补充模型结构、几何处理方式、实验结果与阅读笔记。
+description: 用 Physics-Attention 把复杂几何上的海量网格点压成可学习 slices，再用 Transformer 解 PDE。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - transformer
   - pde
   - operator-learning
-authors: []
-takeaway: 待补充
+authors:
+  - Haixu Wu
+  - Huakun Luo
+  - Haowen Wang
+  - Jianmin Wang
+  - Mingsheng Long
+source: ICML 2024 (PMLR 235)
+year: 2024
+paperUrl: https://proceedings.mlr.press/v235/wu24r.html
+takeaway: Transolver 的核心不是把 Transformer 硬搬到 PDE 上，而是先学“物理状态切片”，再在切片级别做注意力。
 ---
 
-## 待补充
+## 摘要
 
-- 问题设定
-- 模型设计
-- 与已有 PDE solver 的差异
-- 可借鉴点
+这篇文章解决的是神经 PDE 求解器在复杂几何上常见的两个问题：网格点太多，以及点与点之间的物理相关性不好直接建模。作者提出 `Physics-Attention`，先把离散网格自适应聚成若干可学习的 slices，再在 slice token 层面做注意力，从而把复杂几何上的大规模问题压缩成更容易建模的表示。
 
-原文链接待补充。
+文章报告说 Transolver 在 6 个标准 benchmark 上表现稳定，而且在汽车和翼型这类工业几何上也能工作。对你这类关注流动、几何和代理模型的人来说，它的启发在于：几何泛化能力不一定非要靠更深的网络，也可以来自更合理的“物理状态重编码”。
+
+## Takeaway
+
+- 把注意力直接作用在网格点上太贵也太碎，Transolver 通过可学习 slices 降低了复杂度。
+- 它强调的是“物理状态相近的点应共享表示”，这比单纯按几何位置分组更有物理意义。
+- 如果以后你想做复杂几何上的 operator learning，这篇文章值得当成设计模板来看。
+
+## 关键公式
+
+文章最核心的是 slice-level attention，可以先用标准注意力形式理解：
+
+$$
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d}}\right)V.
+$$
+
+Transolver 的创新在于：`Q,K,V` 不是直接由原始网格点产生，而是先由 Physics-Attention 聚合出的 slice tokens 产生，因此复杂度更低，也更容易学习几何无关的物理相关性。

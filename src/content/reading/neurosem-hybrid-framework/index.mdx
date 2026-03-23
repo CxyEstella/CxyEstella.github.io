@@ -1,22 +1,49 @@
 ---
-title: NeuroSEM：一种耦合PINNs与谱元法的多物理场问题模拟混合框架
+title: "NeuroSEM: A hybrid framework for simulating multiphysics problems by coupling PINNs and spectral elements"
 slug: neurosem-hybrid-framework
-description: 文献占位页，后续补充研究背景、核心方法、实验设置与个人笔记。
+description: 将 PINNs 只用在有数据或需要反演的局部子域，再与高精度谱元法耦合起来做多物理场模拟。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - pinns
   - spectral-element-method
   - multiphysics
-authors: []
-takeaway: 待补充
+authors:
+  - Khemraj Shukla
+  - Zongren Zou
+  - Chi Hin Chan
+  - Additi Pandey
+  - Zhicheng Wang
+  - George Em Karniadakis
+source: Computer Methods in Applied Mechanics and Engineering
+year: 2025
+paperUrl: https://doi.org/10.1016/j.cma.2024.117498
+takeaway: 把 PINN 当成局部数据同化与边界推断模块、把 SEM 当成主求解器，是这篇文章最值得借鉴的思路。
 ---
 
-## 待补充
+## 摘要
 
-- 研究问题
-- 方法框架
-- 实验与结果
-- 个人理解
+这篇文章提出了一个混合框架 `NeuroSEM`：在有实验数据、缺失边界条件或需要反演的局部区域里使用 PINNs，在其余区域继续使用高保真的谱元法求解器 `Nektar++`。它的关键不是“用神经网络完全替代数值方法”，而是只让神经网络负责最擅长的那一小部分，再通过界面条件把它接回传统求解器。
 
-原文链接待补充。
+作者在 Rayleigh-Benard 对流和绕圆柱非定常流两个问题上验证了这套方法。结果说明这种耦合在噪声数据、缺失热边界条件和局部 PIV 数据等场景下都比较稳，而且比纯 PINN 或纯数值求解更符合工程落地逻辑。
+
+## Takeaway
+
+- 这篇文章最重要的价值是“局部学习 + 全局求解”的混合思想，而不是某一个特定网络结构。
+- 如果你的问题里只有部分区域有数据，NeuroSEM 这种分域耦合比端到端 PINN 更实用。
+- 它本质上把 PINN 从“全域替代求解器”降级成“数据同化接口”，这样更稳定，也更容易扩展到复杂几何。
+
+## 关键公式
+
+一个抓住文章主线的表达是 PINN 子域上的联合损失：
+
+$$
+\mathcal{L}_{\mathrm{PINN}}
+=
+\lambda_{\mathrm{data}}\mathcal{L}_{\mathrm{data}}
+ \lambda_{\mathrm{PDE}}\mathcal{L}_{\mathrm{PDE}}
+ \lambda_{\mathrm{bc}}\mathcal{L}_{\mathrm{bc}}.
+$$
+
+这里的重点不是损失形式本身，而是 PINN 只在局部子域里学习，并把推断出的界面信息传给谱元法主求解器。

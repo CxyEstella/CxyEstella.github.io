@@ -1,22 +1,45 @@
 ---
 title: Reduced-Order Modeling of Turbulent Flows for High-Speed Aerothermoelastic Analysis
 slug: reduced-order-modeling-turbulent-flows
-description: 文献占位页，先记录题目与原文链接，后续补充方法脉络、模型假设和阅读笔记。
+description: 用谱 POD 和空间修正来高效生成湍流边界层导致的非定常压力与热流载荷。
 pubDate: 2026-03-23
+updatedDate: 2026-03-24
 tags:
   - reading
   - reduced-order-model
   - turbulence
   - aerothermoelasticity
-authors: []
+authors:
+  - Elliot S. Kimmel
+  - Daning Huang
+  - Vansh Sharma
+  - Jagmohan Singh
+  - Venkat Raman
+  - Peretz P. Friedmann
 source: AIAA Journal
+year: 2025
 paperUrl: https://doi.org/10.2514/1.J065721
-takeaway: 待补充
+takeaway: 这篇文章最值得记住的是把“频谱内容正确”放在了 ROM 设计的中心，而不只是追求瞬时场的点对点误差。
 ---
 
-## 待补充
+## 摘要
 
-- 研究问题
-- ROM 构造方式
-- 适用场景
-- 个人笔记
+这篇文章关注高超声速气动热弹问题里一个很实际的瓶颈：高保真计算太贵，长时间非定常载荷分析难以承受。作者构造了一个 ROM，用谱 POD 模式和频率来重建未变形结构上的非定常压力历史，再结合结构变形带来的空间修正，近似得到变形结构上的压力和热流载荷。
+
+文章强调，这类模型不仅要在均值上对，更要尽量保住压力波动的频谱内容，因为这直接关系到结构激励和疲劳分析是否可信。结果显示它在计算成本上能降几个数量级，同时对主要频谱特征保持得不错。
+
+## Takeaway
+
+- 对非定常载荷问题来说，频谱保真度常常比局部瞬时误差更重要。
+- 文章把“未变形基解 + 变形修正”拆开处理，这是一个很工程化、也很可复用的思路。
+- 如果以后做气动热弹代理模型，这篇文章提示你要把结构变形对流场的影响显式纳入 ROM 设计。
+
+## 关键公式
+
+文章可以先用典型的模态展开来理解：
+
+$$
+q'(x,t)\approx \sum_{i=1}^{r} a_i(t)\,\phi_i(x),
+$$
+
+其中 $\phi_i(x)$ 是主导空间模态，$a_i(t)$ 是时间系数。本文的重点在于用谱 POD 和频率信息来构造这些时空分解，并进一步对变形结构上的载荷做空间修正。
