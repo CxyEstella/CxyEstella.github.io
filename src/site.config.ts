@@ -9,8 +9,6 @@ export const NAV_LINKS = [
   { href: '/notes/', label: 'Notes' },
   { href: '/projects/', label: 'Projects' },
   { href: '/archive/', label: '归档' },
-  { href: '/tags/', label: '标签' },
-  { href: '/about/', label: '关于' },
   { href: '/cms/', label: 'CMS' },
 ] as const;
 

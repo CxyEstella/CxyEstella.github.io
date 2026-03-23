@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TableOfContents from '@/components/TableOfContents.astro';
-import TagChip from '@/components/TagChip.astro';
 import {
   collectionMeta,
   estimateReadingMinutes,
@@ -44,10 +43,6 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
 
       <h1>{entry.data.title}</h1>
       <p class="post-header__description">{entry.data.description}</p>
-
-      <div class="post-header__tags">
-        {entry.data.tags.map((tag) => <TagChip tag={tag} />)}
-      </div>
 
       {
         coverSrc && (
@@ -142,10 +137,12 @@ const coverHeight = typeof cover === 'string' ? undefined : cover?.height;
     </header>
 
     <div class="post-layout">
+      <aside class="post-sidebar">
+        <TableOfContents headings={headings} />
+      </aside>
       <div class="prose post-content">
         <slot />
       </div>
-      <TableOfContents headings={headings} />
     </div>
   </article>
 </BaseLayout>

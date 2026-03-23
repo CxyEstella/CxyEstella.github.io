@@ -15,11 +15,7 @@ source: NeurIPS
 year: 2017
 paperUrl: https://arxiv.org/abs/1706.03762
 takeaway: 用自注意力替代循环结构之后，模型在并行性和长距离依赖建模上都有明显优势。
-cover: ./cover.svg
-coverAlt: 一个由注意力连线构成的抽象封面图
 ---
-
-![注意力示意图](./attention-map.svg)
 
 ## 论文想解决什么问题
 
@@ -52,4 +48,3 @@ context = weights @ V
 ## 一个值得继续追的问题
 
 Transformer 解决了并行问题，但它并没有免费获得无限上下文。序列长度增长后，注意力计算仍然会带来明显成本，这也是后来长上下文模型不断优化的方向。
-

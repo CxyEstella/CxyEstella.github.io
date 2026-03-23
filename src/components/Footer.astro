@@ -1,5 +1,5 @@
 ---
-import { SITE_DESCRIPTION, SITE_TITLE } from '@/site.config';
+import { SITE_TITLE } from '@/site.config';
 import { withBase } from '@/lib/urls';
 ---
 
@@ -7,12 +7,12 @@ import { withBase } from '@/lib/urls';
   <div class="container site-footer__inner">
     <div>
       <p class="site-footer__title">{SITE_TITLE}</p>
-      <p class="site-footer__text">{SITE_DESCRIPTION}</p>
+      <p class="site-footer__text">A quiet place for notes, reading logs, and project records.</p>
     </div>
     <div class="site-footer__links">
       <a href={withBase('/feed.xml')}>RSS</a>
       <a href={withBase('/search/')}>搜索</a>
-      <a href={withBase('/about/')}>关于</a>
+      <a href={withBase('/cms/')}>CMS</a>
     </div>
   </div>
 </footer>

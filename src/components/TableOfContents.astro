@@ -16,7 +16,7 @@ const items = headings.filter((heading) => heading.depth >= 2 && heading.depth <
 {
   items.length > 0 && (
     <aside class="toc" aria-label="文章目录">
-      <p class="toc__title">目录</p>
+      <p class="toc__title">On This Page</p>
       <ol class="toc__list">
         {items.map((heading) => (
           <li class:list={['toc__item', `depth-${heading.depth}`]}>
@@ -27,4 +27,3 @@ const items = headings.filter((heading) => heading.depth >= 2 && heading.depth <
     </aside>
   )
 }
-

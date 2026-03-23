@@ -1,5 +1,4 @@
 ---
-import TagChip from '@/components/TagChip.astro';
 import {
   collectionMeta,
   estimateReadingMinutes,
@@ -38,9 +37,6 @@ const meta = collectionMeta[entry.collection];
   <p class="entry-card__description">{entry.data.description}</p>
 
   <div class="entry-card__footer">
-    <div class="entry-card__tags">
-      {entry.data.tags.slice(0, 4).map((tag) => <TagChip tag={tag} />)}
-    </div>
     <a class="entry-card__link" href={withBase(getEntryUrl(entry))}>
       Read more
     </a>
