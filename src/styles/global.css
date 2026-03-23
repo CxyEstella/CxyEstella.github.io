@@ -218,7 +218,6 @@ select {
 }
 
 .hero,
-.entry-card,
 .post-header,
 .toc,
 .archive-group,
@@ -239,6 +238,14 @@ select {
 
 .hero--single {
   grid-template-columns: 1fr;
+}
+
+.hero--landing {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1rem 0 0.6rem;
 }
 
 .hero__copy h1,
@@ -337,15 +344,18 @@ html[data-theme='light'] .button-link--primary {
   margin-bottom: 1rem;
 }
 
-.entry-grid {
+.entry-list {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
 
 .entry-card {
-  grid-column: span 6;
-  padding: 1.35rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .entry-card__title,
@@ -385,6 +395,10 @@ html[data-theme='light'] .button-link--primary {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.entry-card__title a:hover {
+  color: var(--accent-strong);
 }
 
 .page-header {
@@ -705,10 +719,6 @@ html[data-theme='light'] .button-link--primary {
 
   .search-mini__input {
     width: 100%;
-  }
-
-  .entry-card {
-    grid-column: span 12;
   }
 
   .post-shell,

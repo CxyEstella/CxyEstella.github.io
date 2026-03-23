@@ -11,14 +11,11 @@ const latestEntries = allEntries.slice(0, 8);
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="container">
-    <section class="hero hero--single">
+    <section class="hero hero--single hero--landing">
       <div class="hero__copy">
-        <p class="eyebrow">PERSONAL KNOWLEDGE SYSTEM</p>
-        <h1>清楚一点，安静一点，内容优先。</h1>
-        <p>
-          这里用来放阅读笔记、学习整理、生活记录和项目日志。页面尽量克制，结构尽量清楚，
-          方便长期积累和回看。
-        </p>
+        <p class="eyebrow">FLOW / INDEX</p>
+        <h1>Quiet structure for reading, notes, and project logs.</h1>
+        <p>A personal system for literature reading, study notes, everyday writing, and project records.</p>
         <div class="hero__actions">
           <a class="button-link button-link--primary" href={withBase('/notes/')}>
             Notes
@@ -36,14 +33,14 @@ const latestEntries = allEntries.slice(0, 8);
     <section class="section">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Latest</h2>
-          <p>最近更新的内容。</p>
+          <h2 class="section-title">Recent Index</h2>
+          <p>Latest updates across all collections.</p>
         </div>
         <a class="button-link button-link--secondary" href={withBase('/archive/')}>
           Archive
         </a>
       </div>
-      <div class="entry-grid">
+      <div class="entry-list">
         {latestEntries.map((entry) => <EntryCard entry={entry} showCollection />)}
       </div>
     </section>

@@ -14,9 +14,8 @@ const meta = collectionMeta.notes;
       <h1 class="page-title">{meta.title}</h1>
       <p class="page-lead">{meta.description}</p>
     </header>
-    <div class="entry-grid">
+    <div class="entry-list">
       {entries.map((entry) => <EntryCard entry={entry} />)}
     </div>
   </div>
 </BaseLayout>
-
